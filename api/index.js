@@ -5,6 +5,7 @@ const dbConnect = require("./database/db");
 const authRoute = require("./routes/auth")
 const userRoute = require("./routes/users")
 const videoRoute = require("./routes/videos")
+const listRoute = require("./routes/lists")
 
 const app = express();
 dotenv.config();
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/videos", videoRoute);
+app.use("/api/lists", listRoute);
 
 app.listen(port, () => {
   dbConnect();
