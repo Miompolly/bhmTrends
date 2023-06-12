@@ -1,12 +1,16 @@
 import "./home.scss";
 import Navbar from "../components/navbar/Navbar";
+import Featured from "../components/featured/Featured";
+import List from "../components/list/List";
 const Home = () => {
   return (
     <div className="home">
     <Navbar/>
-    <img 
-    width="100%"
-    src="https://s.hdnux.com/photos/01/32/54/55/23776101/3/1200x0.jpg"/>
+   <Featured/>
+   <List/>
+   <List/>
+   <List/>
+   <List/>
    
     </div>
   )
