@@ -2,6 +2,7 @@ import "./navbar.scss"
 import logo from "../../images/logo.jpg"
 import { ArrowDropDown, Notifications, Search } from "@material-ui/icons"
 import { useState } from "react"
+import { Link } from "react-router-dom"
 
 
 const Navbar = () => {
@@ -17,9 +18,16 @@ window.onscroll=()=>{
     <div className="container">
     <div className="left">
     <img src={logo} alt="Trends"/>
+    <Link to="/" className="link">
     <span>HomePage</span>
-    <span>Album</span>
+    </Link>
+    <Link to="/song"  className="link">
     <span>Songs</span>
+    </Link>
+    <Link to="/album"  className="link">
+    <span>Album</span>
+    </Link>
+
     <span>New and Popular</span>
     <span>My Lists</span>
     </div>

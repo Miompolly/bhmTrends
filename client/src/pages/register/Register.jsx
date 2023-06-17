@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { useState } from "react";
 import "./register.scss";
 import logo from "../../images/logo.jpg"
+import { Link } from "react-router-dom";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -26,7 +27,9 @@ export default function Register() {
             src={logo}
             alt=""
           />
+          <Link to="/login">
           <button className="loginButton">Sign In</button>
+          </Link>
         </div>
       </div>
       <div className="container">
