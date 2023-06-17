@@ -1,12 +1,18 @@
 
-import './App.scss'
-import Login from './pages/login/Login'
-// import Home from './pages/home/Home'
-// import Watch from './pages/watch/Watch'
-// import Register from './pages/register/Register'
+import './App.scss';
+import Home from './pages/home/Home';
+import { BrowserRouter, Routes,Route } from 'react-router-dom';
 
 function App() {
-  return <Login/>
+  return(
+  <BrowserRouter>
+  <Routes>
+    <Route path="/song" element={<Home type="song" />} />
+    <Route path="/album" element={<Home type="album" />} />
+    <Route path="*" element={<Home />} />
+  </Routes>
+</BrowserRouter>
+  );
 }
 
-export default App
+export default App;

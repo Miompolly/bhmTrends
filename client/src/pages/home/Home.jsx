@@ -1,19 +1,26 @@
+
+import PropTypes from 'prop-types';
 import "./home.scss";
 import Navbar from "../../components/navbar/Navbar";
 import Featured from "../../components/featured/Featured";
 import List from "../../components/list/List";
-const Home = () => {
+
+const Home = ({ type }) => {
   return (
     <div className="home">
-    <Navbar/>
-   <Featured/>
-   <List/>
-   <List/>
-   <List/>
-   <List/>
-   
+      <Navbar />
+      <Featured type={type} />
+      <List />
+      <List />
+      <List />
+      <List />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+Home.propTypes = {
+  type: PropTypes.string.isRequired,
+};
+
+export default Home;
+
