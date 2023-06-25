@@ -1,27 +1,40 @@
-import { Add, PlayArrow, ThumbDownAltOutlined, ThumbUpOutlined } from "@material-ui/icons"
-import "./listitem.scss"
-import { useState } from "react"
+import { Add, PlayArrow, ThumbDownAltOutlined, ThumbUpOutlined } from "@material-ui/icons";
+import "./listitem.scss";
+import { useState, useEffect } from "react";
 
-// eslint-disable-next-line react/prop-types
-export default function ListItem({index}) {
+export default function ListItem({ index, item }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [video, setVideo] = useState({});
 
-  const [isHovered,setIsHovered]=useState(false);
-  const trailler ="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0fd273d2c6d9a064f3ae35579b2bbdf&profile_id=139&oauth2_token_id=57447761";
+  useEffect(() => {
+    const getVideos = async () => {
+      try {
+        const response = await fetch("http://localhost:8800/videos/find/" + item, {
+          headers: {
+            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODI1NDlhYzZjMDFlZmRkMWYyMGNiNCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4ODU0NTc4MywiZXhwIjoxNjg4OTc3NzgzfQ.V8ykyrIGhXLfTYygZyQkDJFBicNXWb6QYe-pNgE253Q"
+          }
+        });
+        const data = await response.json();
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getVideos();
+  }, [item]);
 
   return (
     <div
       className="listItem"
-      style={{ left: isHovered && index * 225 - 50 + index * 2.5 }}
+      style={{ left: isHovered ? index * 225 - 50 + index * 2.5 : undefined }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img
-        src="https://s.hdnux.com/photos/01/32/54/55/23776101/3/1200x0.jpg" 
-        alt=""
-      />
+      <img src={video.img} alt="" />
       {isHovered && (
         <>
-          <video src={trailler} autoPlay={true} loop />
+          <video src={video.trailer} autoPlay={true} loop />
           <div className="itemInfo">
             <div className="icons">
               <PlayArrow className="icon" />
@@ -30,15 +43,12 @@ export default function ListItem({index}) {
               <ThumbDownAltOutlined className="icon" />
             </div>
             <div className="itemInfoTop">
-              <span>1 hour 14 mins</span>
-              <span className="limit">+16</span>
-              <span>2012</span>
+              <span>{video.duration}</span>
+              <span className="limit">+{video.limit}</span>
+              <span>{video.year}</span>
             </div>
-            <div className="desc">
-            No Worries is a song by American hip hop recording artist Lil Wayne,
-            released on September 3, 2012
-            </div>
-            <div className="genre">Hip Hop</div>
+            <div className="desc">{video.desc}</div>
+            <div className="genre">{video.genre}</div>
           </div>
         </>
       )}

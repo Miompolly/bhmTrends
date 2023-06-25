@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import PropTypes from 'prop-types';
 import "./home.scss";
 import Navbar from "../../components/navbar/Navbar";
@@ -13,14 +14,16 @@ const Home = ({ type }) => {
   useEffect(() => {
     const getRandomLists = async () => {
       try {
-        const res = await axios.get(`http://localhost:8800/api/lists${type ? "?type=" + type : ""}${genre ? "&genre=" + genre : ""}`, {
+        const url = "http://localhost:8800/api/lists";
+        const res = await axios.get(url, {
           headers: {
-            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODI1NDlhYzZjMDFlZmRkMWYyMGNiNCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4NzY4MzMwMywiZXhwIjoxNjg4MTE1MzAzfQ.z4MoCp9zTzh407V_AXF4FM_CM1CPnoCUkC_EVXb9GcE"
+            token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ODI1NDlhYzZjMDFlZmRkMWYyMGNiNCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY4ODU0NTc4MywiZXhwIjoxNjg4OTc3NzgzfQ.V8ykyrIGhXLfTYygZyQkDJFBicNXWb6QYe-pNgE253Q"
           }
         });
-        
+
         setLists(res.data);
         console.log(res);
+
       } catch (err) {
         console.log(err.res);
       }
@@ -32,10 +35,12 @@ const Home = ({ type }) => {
     <div className="home">
       <Navbar />
       <Featured type={type} />
-      <List />
-      <List />
-      <List />
-      <List />
+   {
+    lists.map((list)=>(
+      <List list={list}/>
+    ))
+   }
+
     </div>
   );
 };
